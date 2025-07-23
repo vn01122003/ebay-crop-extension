@@ -81,18 +81,26 @@ function showCropModal(imageSrc) {
       () => {
         const croppedCanvas = cropper.getCroppedCanvas();
         const base64Image = croppedCanvas.toDataURL('image/png');
-        fetch("http://n8n-lbmj.onrender.com/webhook/22b3dae3-95e5-4bfa-8187-9dca2dc72f85/chat", {
+        fetch("https://09aa3ed90d27.ngrok-free.app/webhook", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ chatInput: base64Image })
         })
-        .then(res => res.blob())
+        .then(res => {
+          if (!res.ok) throw new Error("Server returned error: " + res.status);
+          return res.blob();
+        })
         .then(blob => {
+          console.log("✅ Received image blob:", blob);
           const url = URL.createObjectURL(blob);
           const a = document.createElement("a");
           a.href = url;
-          a.download = "gemini-image.png";
+          a.download = "image_gen.png";
           a.click();
+          console.log("📥 Download triggered");
+        })
+        .catch(err => {
+          console.error("❌ Download failed:", err);
         });
       },
       () => modal.remove()
