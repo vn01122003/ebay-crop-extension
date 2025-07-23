@@ -11,7 +11,11 @@
         "https://*.lazada.vn/*",
         "https://*.amazon.com/*"
       ],
-      "js": ["content.js"]
+      "js": [
+        "content.js",
+        "lib/cropper.min.js"
+      ],
+      "css": ["lib/cropper.min.css"]
     }
   ],
   "host_permissions": ["<all_urls>"]
