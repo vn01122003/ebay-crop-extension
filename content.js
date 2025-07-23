@@ -81,7 +81,7 @@ function showCropModal(imageSrc) {
       () => {
         const croppedCanvas = cropper.getCroppedCanvas();
         const base64Image = croppedCanvas.toDataURL('image/png');
-        fetch("https://09aa3ed90d27.ngrok-free.app/webhook", {
+        fetch("https://tool-backend-4i2f.onrender.com/webhook", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ chatInput: base64Image })
